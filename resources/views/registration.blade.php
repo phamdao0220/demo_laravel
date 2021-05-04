@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registation</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+@if(count($errors)>0)
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $err)
+            {{$err}}<br>
+        @endforeach
+    </div>
+@endif
+@if(session('thongbao'))
+    <div class="alert alert-success">
+        {{session('thongbao')}}
+    </div>
+@endif
+<form action="{{route('postRegistration')}}" method="post">
+    @csrf
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="text-center">Registation</h2>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="usr">Name:</label>
+                    <input required="true" type="text" class="form-control" id="usr" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Birthday:</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input required="true" type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Role</label>
+                    <select name="roles_id" >
+                        @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input required="true" type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmation_pwd">Confirmation Password:</label>
+                    <input required="true" type="password" class="form-control" id="confirmation_pwd" >
+                </div>
+                <button type="submit" class="btn btn-success">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
